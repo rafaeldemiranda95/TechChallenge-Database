@@ -110,4 +110,6 @@ jobs:
           USER: ${{ secrets.DB_USER }}
           PASSWORD: ${{ secrets.DB_PASSWORD }}
           DATABASE_NAME: ${{ secrets.DB_NAME }}
+          TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
+          TF_VAR_postgres_username: ${{ secrets.DB_USER }}
         run: bash ./scripts/check_and_run_sql.sh $CONNECTION_NAME $USER $PASSWORD $DATABASE_NAME

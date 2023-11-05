@@ -19,7 +19,7 @@ resource "google_sql_database" "default" {
 }
 
 resource "google_sql_user" "default" {
-  name     = "tech-challenge-user"
+  name     = var.postgres_username
   instance = google_sql_database_instance.postgres_instance.name
   password = var.postgres_password
 }
