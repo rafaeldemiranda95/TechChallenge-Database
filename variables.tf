@@ -12,7 +12,7 @@ variable "postgres_password" {
   sensitive   = true
 }
 
-variable "var.username" {
+variable "postgres_username" {
   description = "O nome de usuário para o banco de dados"
   default     = "postgres"
 }
