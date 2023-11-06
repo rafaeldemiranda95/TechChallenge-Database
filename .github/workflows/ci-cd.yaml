@@ -25,11 +25,14 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      - name: Terraform Init
+      - name: Terraform Setup
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: "1.0.0"
           terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
 
       - name: Terraform Format
         run: terraform fmt -check
@@ -39,8 +42,7 @@ jobs:
         env:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
-          # Defina outras variáveis de ambiente necessárias para o Terraform aqui, como:
-          # TF_VAR_postgres_username: ${{ secrets.DB_USER }}
+          TF_VAR_postgres_username: ${{ secrets.DB_USER }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -48,13 +50,13 @@ jobs:
         env:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
-          # Defina outras variáveis de ambiente necessárias para o Terraform aqui, como:
-          # TF_VAR_postgres_username: ${{ secrets.DB_USER }}
+          TF_VAR_postgres_username: ${{ secrets.DB_USER }}
 
       - name: Check and Run SQL Script
-        run: bash ./scripts/check_and_run_sql.sh $CONNECTION_NAME $POSTGRES_USERNAME $POSTGRES_PASSWORD $INSTANCE_NAME
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: bash ./scripts/check_and_run_sql.sh ${{ secrets.DB_CONNECTION_NAME }} ${{ secrets.DB_USER }} ${{ secrets.DB_PASSWORD }} ${{ secrets.DB_NAME }}
         env:
           CONNECTION_NAME: ${{ secrets.DB_CONNECTION_NAME }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          POSTGRES_USERNAME: ${{ secrets.DB_USER }}
-          INSTANCE_NAME: ${{ secrets.DB_INSTANCE_NAME }}
+          USER: ${{ secrets.DB_USER }}
+          PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DATABASE_NAME: ${{ secrets.DB_NAME }}
