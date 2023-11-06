@@ -54,7 +54,7 @@ jobs:
 
       - name: Check and Run SQL Script
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: bash ./scripts/check_and_run_sql.sh ${{ secrets.DB_CONNECTION_NAME }} ${{ secrets.DB_USER }} ${{ secrets.DB_PASSWORD }} ${{ secrets.DB_NAME }}
+        run: bash ./sql/check_and_run_sql.sh ${{ secrets.DB_CONNECTION_NAME }} ${{ secrets.DB_USER }} ${{ secrets.DB_PASSWORD }} ${{ secrets.DB_NAME }}
         env:
           CONNECTION_NAME: ${{ secrets.DB_CONNECTION_NAME }}
           USER: ${{ secrets.DB_USER }}
