@@ -4,7 +4,7 @@ provider "google" {
 }
 
 resource "google_sql_database_instance" "postgres_instance" {
-  name             = "teste"
+  name             = "tech-challenge-db"
   database_version = "POSTGRES_15"
   region           = var.region
 
