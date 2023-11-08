@@ -24,14 +24,14 @@ resource "google_sql_user" "default" {
   password = var.postgres_password
 }
 
-# resource "null_resource" "db_setup" {
-#   depends_on = [google_sql_database.default]
+resource "null_resource" "db_setup" {
+  depends_on = [google_sql_database.default]
 
-#   provisioner "local-exec" {
-#     command = "sh check_and_run_sql.sh ${google_sql_database_instance.postgres_instance.connection_name} ${var.postgres_password} ${google_sql_database.default.name}"
-#   }
+  # provisioner "local-exec" {
+  #   command = "sh check_and_run_sql.sh ${google_sql_database_instance.postgres_instance.connection_name} ${var.postgres_password} ${google_sql_database.default.name}"
+  # }
 
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-# }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
