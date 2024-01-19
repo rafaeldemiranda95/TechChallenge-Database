@@ -13,8 +13,27 @@ resource "google_sql_database_instance" "postgres_instance" {
   }
 }
 
+# Banco de dados principal
 resource "google_sql_database" "default" {
   name     = "tech-challenge-db"
+  instance = google_sql_database_instance.postgres_instance.name
+}
+
+# Banco de dados para Pagamento
+resource "google_sql_database" "techchallenge_pagamento" {
+  name     = var.techchallenge_pagamento_db_name
+  instance = google_sql_database_instance.postgres_instance.name
+}
+
+# Banco de dados para Produção
+resource "google_sql_database" "techchallenge_producao" {
+  name     = var.techchallenge_producao_db_name
+  instance = google_sql_database_instance.postgres_instance.name
+}
+
+# Banco de dados para Pedido
+resource "google_sql_database" "techchallenge_pedido" {
+  name     = var.techchallenge_pedido_db_name
   instance = google_sql_database_instance.postgres_instance.name
 }
 
