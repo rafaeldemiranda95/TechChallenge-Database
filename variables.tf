@@ -13,6 +13,21 @@ variable "postgres_password" {
 }
 
 variable "postgres_username" {
-  description = "O nome de usuário para o banco de dados"
+  description = "O nome de usuário para o banco de dados"
   default     = "postgres"
+}
+
+variable "techchallenge_pagamento_db_name" {
+  description = "Nome do banco de dados para o microsserviço de Pagamento"
+  default     = "TechChallenge-Pagamento"
+}
+
+variable "techchallenge_producao_db_name" {
+  description = "Nome do banco de dados para o microsserviço de Produção"
+  default     = "TechChallenge-Producao"
+}
+
+variable "techchallenge_pedido_db_name" {
+  description = "Nome do banco de dados para o microsserviço de Pedido"
+  default     = "TechChallenge-Pedido"
 }

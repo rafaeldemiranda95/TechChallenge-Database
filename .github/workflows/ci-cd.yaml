@@ -43,6 +43,10 @@ jobs:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
           TF_VAR_postgres_username: ${{ secrets.DB_USER }}
+          # Adicione as variáveis abaixo se você quiser sobrescrever os valores padrão
+          # TF_VAR_techchallenge_pagamento_db_name: ${{ secrets.PAGAMENTO_DB_NAME }}
+          # TF_VAR_techchallenge_producao_db_name: ${{ secrets.PRODUCAO_DB_NAME }}
+          # TF_VAR_techchallenge_pedido_db_name: ${{ secrets.PEDIDO_DB_NAME }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -51,6 +55,10 @@ jobs:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
           TF_VAR_postgres_username: ${{ secrets.DB_USER }}
+          # Adicione as variáveis abaixo se necessário
+          # TF_VAR_techchallenge_pagamento_db_name: ${{ secrets.PAGAMENTO_DB_NAME }}
+          # TF_VAR_techchallenge_producao_db_name: ${{ secrets.PRODUCAO_DB_NAME }}
+          # TF_VAR_techchallenge_pedido_db_name: ${{ secrets.PEDIDO_DB_NAME }}
 
       # - name: Check and Run SQL Script
       #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
