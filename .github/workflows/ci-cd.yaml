@@ -41,7 +41,7 @@ jobs:
         id: plan
         run: |
           terraform plan -out=tfplan
-          echo "::set-output name=has_changes::$(terraform plan -detailed-exitcode; echo $?)"
+          echo "TF_PLAN_EXIT_CODE=$?" >> $GITHUB_ENV
         env:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
           TF_VAR_postgres_password: ${{ secrets.DB_PASSWORD }}
@@ -52,7 +52,7 @@ jobs:
           # TF_VAR_techchallenge_pedido_db_name: ${{ secrets.PEDIDO_DB_NAME }}
 
       - name: Terraform Apply
-        if: steps.plan.outputs.has_changes == '2'
+        if: env.TF_PLAN_EXIT_CODE == '2'
         run: terraform apply -auto-approve tfplan
         env:
           TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
