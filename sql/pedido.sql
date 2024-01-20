@@ -1,3 +1,5 @@
+CREATE DATABASE PedidoDB;
+
 CREATE TABLE Usuario (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE,
@@ -54,16 +56,6 @@ CREATE TABLE Pagamento (
   updatedAt TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE Fila (
-  id SERIAL PRIMARY KEY,
-  pedidoId INT UNIQUE,
-  usuarioId INT,
-  status VARCHAR(255),
-  data TIMESTAMP DEFAULT NOW(),
-  createdAt TIMESTAMP DEFAULT NOW(),
-  updatedAt TIMESTAMP DEFAULT NOW()
-);
-
 INSERT INTO Usuario (email, nome, cpf, senha) VALUES
   ('usuario1@example.com', 'Usuário 1', '12345678901', 'senha123'),
   ('usuario2@example.com', 'Usuário 2', '98765432101', 'senha456');
@@ -81,11 +73,3 @@ INSERT INTO PedidoProduto (pedidoId, produtoId, quantidade) VALUES
   (1, 1, 2),
   (1, 2, 1),
   (2, 3, 3);
-
-INSERT INTO Pagamento (pedidoId, usuarioId, valor, status) VALUES
-  (1, 1, 39.98, 'Aprovado'),
-  (2, 2, 19.99, 'Pendente');
-
-INSERT INTO Fila (pedidoId, usuarioId, status) VALUES
-  (1, 1, 'Em andamento'),
-  (2, 2, 'Pendente');
