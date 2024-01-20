@@ -39,27 +39,17 @@ resource "google_sql_database" "techchallenge_pagamento" {
   name     = var.techchallenge_pagamento_db_name
   instance = google_sql_database_instance.techchallenge_pagamento.name
 
-  provisioner "local-exec" {
-    command = "gcloud sql connect ${google_sql_database_instance.techchallenge_pagamento.name} --user=${var.postgres_username} < ./sql/pagamento.sql"
-  }
 }
 
 resource "google_sql_database" "techchallenge_producao" {
   name     = var.techchallenge_producao_db_name
   instance = google_sql_database_instance.techchallenge_producao.name
 
-  provisioner "local-exec" {
-    command = "gcloud sql connect ${google_sql_database_instance.techchallenge_producao.name} --user=${var.postgres_username} < ./sql/producao.sql"
-  }
 }
 
 resource "google_sql_database" "techchallenge_pedido" {
   name     = var.techchallenge_pedido_db_name
   instance = google_sql_database_instance.techchallenge_pedido.name
-
-  provisioner "local-exec" {
-    command = "gcloud sql connect ${google_sql_database_instance.techchallenge_pedido.name} --user=${var.postgres_username} < ./sql/pedido.sql"
-  }
 }
 
 # Usuários dos Bancos de Dados
