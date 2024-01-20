@@ -3,8 +3,35 @@ provider "google" {
   region  = var.region
 }
 
-resource "google_sql_database_instance" "postgres_instance" {
-  name             = "tech-challenge-db"
+# resource "google_sql_database_instance" "postgres_instance" {
+#   name             = "tech-challenge-db"
+#   database_version = "POSTGRES_15"
+#   region           = var.region
+
+#   settings {
+#     tier = "db-f1-micro"
+#   }
+# }
+resource "google_sql_database_instance" "techchallenge_pagamento" {
+  name             = "techchallenge_pagamento"
+  database_version = "POSTGRES_15"
+  region           = var.region
+
+  settings {
+    tier = "db-f1-micro"
+  }
+}
+resource "google_sql_database_instance" "techchallenge_producao" {
+  name             = "techchallenge_producao"
+  database_version = "POSTGRES_15"
+  region           = var.region
+
+  settings {
+    tier = "db-f1-micro"
+  }
+}
+resource "google_sql_database_instance" "techchallenge_pedido" {
+  name             = "techchallenge_pedido"
   database_version = "POSTGRES_15"
   region           = var.region
 
@@ -14,27 +41,27 @@ resource "google_sql_database_instance" "postgres_instance" {
 }
 
 # Banco de dados principal
-resource "google_sql_database" "default" {
-  name     = "tech-challenge-db"
-  instance = google_sql_database_instance.postgres_instance.name
-}
+# resource "google_sql_database" "default" {
+#   name     = "tech-challenge-db"
+#   instance = google_sql_database_instance.postgres_instance.name
+# }
 
 # Banco de dados para Pagamento
 resource "google_sql_database" "techchallenge_pagamento" {
   name     = var.techchallenge_pagamento_db_name
-  instance = google_sql_database_instance.postgres_instance.name
+  instance = google_sql_database_instance.techchallenge_pagamento.name
 }
 
 # Banco de dados para Produção
 resource "google_sql_database" "techchallenge_producao" {
   name     = var.techchallenge_producao_db_name
-  instance = google_sql_database_instance.postgres_instance.name
+  instance = google_sql_database_instance.techchallenge_producao.name
 }
 
 # Banco de dados para Pedido
 resource "google_sql_database" "techchallenge_pedido" {
   name     = var.techchallenge_pedido_db_name
-  instance = google_sql_database_instance.postgres_instance.name
+  instance = google_sql_database_instance.techchallenge_pedido.name
 }
 
 resource "google_sql_user" "default" {
