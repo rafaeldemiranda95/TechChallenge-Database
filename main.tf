@@ -64,9 +64,24 @@ resource "google_sql_database" "techchallenge_pedido" {
   instance = google_sql_database_instance.techchallenge_pedido.name
 }
 
-resource "google_sql_user" "default" {
+# resource "google_sql_user" "default" {
+#   name     = var.postgres_username
+#   instance = google_sql_database_instance.postgres_instance.name
+#   password = var.postgres_password
+# }
+resource "google_sql_user" "techchallenge_pagamento" {
   name     = var.postgres_username
-  instance = google_sql_database_instance.postgres_instance.name
+  instance = google_sql_database_instance.techchallenge_pagamento.name
+  password = var.postgres_password
+}
+resource "google_sql_user" "techchallenge_producao" {
+  name     = var.postgres_username
+  instance = google_sql_database_instance.techchallenge_producao.name
+  password = var.postgres_password
+}
+resource "google_sql_user" "techchallenge_pedido" {
+  name     = var.postgres_username
+  instance = google_sql_database_instance.techchallenge_pedido.name
   password = var.postgres_password
 }
 
