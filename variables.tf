@@ -10,6 +10,7 @@ variable "region" {
 variable "postgres_password" {
   description = "A senha para o usuário PostgreSQL"
   sensitive   = true
+  default     = "postgres"
 }
 
 variable "postgres_username" {
